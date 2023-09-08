@@ -67,7 +67,9 @@ namespace Gest_Immo_API.Controllers
             var result=await _userManager.CreateAsync(userToAdd,model.Password);
             if (!result.Succeeded) return BadRequest(result.Errors);
 
-            return Ok("Le compte a été correctement créé, vous pouvez vous connecter");
+            return Ok(new JsonResult(new {title="Account Created", 
+                message= "Votre compte a été correctement créé, vous pouvez vous connecter" }));
+            //return Ok("Le compte a été correctement créé, vous pouvez vous connKecter");
         }
 
         #region private helper methods

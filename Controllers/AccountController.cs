@@ -40,12 +40,12 @@ namespace Gest_Immo_API.Controllers
         public async Task<ActionResult<UserDto>> Login(LoginDto model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
-            if (user == null) return Unauthorized("Nom d'utilisateur ou mot de passse incorrect");
+            if (user == null) return Unauthorized("Nom d'utilisateur ou mot de passe incorrect");
 
             if(!user.EmailConfirmed) return Unauthorized("Veuillez confirmer votre email.");
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-            if(!result.Succeeded) return Unauthorized("Nom d'utilisateur ou mot de passse incorrect");
+            if(!result.Succeeded) return Unauthorized("Nom d'utilisateur ou mot de passe incorrect");
 
             return CreateApplicationUserDto(user);
 
@@ -67,7 +67,7 @@ namespace Gest_Immo_API.Controllers
             var result=await _userManager.CreateAsync(userToAdd,model.Password);
             if (!result.Succeeded) return BadRequest(result.Errors);
 
-            return Ok(new JsonResult(new {title="Account Created", 
+            return Ok(new JsonResult(new {title="Compte enregistré", 
                 message= "Votre compte a été correctement créé, vous pouvez vous connecter" }));
             //return Ok("Le compte a été correctement créé, vous pouvez vous connKecter");
         }

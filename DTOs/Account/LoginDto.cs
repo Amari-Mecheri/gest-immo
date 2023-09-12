@@ -4,9 +4,9 @@ namespace Gest_Immo_API.DTOs.Account
 {
     public class LoginDto
     {
-        [Required]
+        [Required(ErrorMessage ="Une adresse email est requise")]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Un mot de passe est requis")]
         public string Password { get; set; }
     }
 }

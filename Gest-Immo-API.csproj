@@ -5,10 +5,12 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>Gest_Immo_API</RootNamespace>
+    <UserSecretsId>2c2cdc77-fad1-4f5e-9294-45114d2d66ee</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
 	  <!--to identify user using JWT Bearer-->
+    <PackageReference Include="Mailjet.Api" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
 	  <!--to be able to derive from identityDbContext inside our context.cs-->
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />

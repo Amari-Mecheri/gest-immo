@@ -183,12 +183,12 @@ namespace Gest_Immo_API.Controllers
 
         }
 
-        [HttpPut("reset-password/{email}")]
+        [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto model, string email)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null) return Unauthorized("Cette adresse email n'est pas enregistrée");
-            if (!user.EmailConfirmed) return BadRequest("Votre adresse email n'a pas été confirmée. Veuillez confirmer votre adresse email");
+            if (!user.EmailConfirmed) return BadRequest("Votre adresse email n'est pas confirmée. Veuillez confirmer votre adresse email");
 
             try
             {
@@ -229,7 +229,7 @@ namespace Gest_Immo_API.Controllers
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-            var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ConfirmEmailPath"]}?token={token}&mail={user.Email}";
+            var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ConfirmEmailPath"]}?token={token}&email={user.Email}";
 
             var body = $"<p>Bonjour: {user.FirstName} {user.LastName} </p>" +
                 "<p>Veuillez confirmer votre adresse email en cliquant sur le lien suivant</p>" +
@@ -246,7 +246,7 @@ namespace Gest_Immo_API.Controllers
         {
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
-            var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?token={token}&mail={user.Email}";
+            var url = $"{_config["JWT:ClientUrl"]}/{_config["Email:ResetPasswordPath"]}?token={token}&email={user.Email}";
 
             var body = $"<p>Bonjour: {user.FirstName} {user.LastName} </p>" +
                 $"<p>Nom d'utilisateur: {user.UserName}</p>" +
